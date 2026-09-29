@@ -196,12 +196,13 @@ def run_client():
     start_time = time.time()
 
     if len(sys.argv) < 2:
-        print("Usage: python client_split.py <M01|M02|M03>")
+        print("Usage: python client_diff_pc.py <M01|M02|M03> [server_ip]")
         sys.exit(1)
 
     machine_id = sys.argv[1]
+    server_ip = sys.argv[2] if len(sys.argv) > 2 else os.environ.get("SERVER_IP", SERVER_IP)
     print(f"[{machine_id}] Starting client (U-shape split learning)...")
-    print(f"[{machine_id}] Connecting to server at {SERVER_IP}:{SERVER_PORT}")
+    print(f"[{machine_id}] Connecting to server at {server_ip}:{SERVER_PORT}")
 
     # ---- Load training data ----
     X_train, y_train = load_data(machine_id, base_dir="new_train")
@@ -211,9 +212,9 @@ def run_client():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(SOCKET_TIMEOUT)
     try:
-        sock.connect((SERVER_IP, SERVER_PORT))
+        sock.connect((server_ip, SERVER_PORT))
     except (ConnectionRefusedError, socket.timeout) as e:
-        print(f"[{machine_id}] Could not connect to server at {SERVER_IP}:{SERVER_PORT} — {e}")
+        print(f"[{machine_id}] Could not connect to server at {server_ip}:{SERVER_PORT} — {e}")
         print(f"[{machine_id}] Make sure the server is running and the IP is correct.")
         sys.exit(1)
 

@@ -18,13 +18,14 @@ LOG_DIR = "logs"
 # ============================================================
 records = []
 for filename in sorted(os.listdir(LOG_DIR)):
-    if not filename.endswith(".json"):
+    if not filename.endswith(".json") or filename == "privacy_report.json":
         continue
     path = os.path.join(LOG_DIR, filename)
     try:
         with open(path) as f:
             record = json.load(f)
-        records.append(record)
+        if isinstance(record, dict) and "method" in record and "client" in record:
+            records.append(record)
     except (json.JSONDecodeError, OSError) as e:
         print(f"Warning: could not read {path} — {e}")
 

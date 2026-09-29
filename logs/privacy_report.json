@@ -1,0 +1,58 @@
+{
+    "label_exposure": {
+        "u_shape": {
+            "labels_sent_to_server": "NONE",
+            "server_computes_loss": false,
+            "description": "Labels never leave the client. The server sees only intermediate activations and gradients. The tail of the network lives on the client, which computes the loss and backpropagates through the server block."
+        },
+        "normal_split": {
+            "labels_sent_to_server": "ALL \u2014 every training batch",
+            "server_computes_loss": true,
+            "description": "Server receives labels with every activation batch to compute the cross-entropy loss. A curious server trivially knows all labels."
+        }
+    },
+    "attack_results": {
+        "u_shape": {
+            "mean": 0.3333333333333333,
+            "std": 0.0,
+            "ci95": 0.0,
+            "all": [
+                0.3333333333333333,
+                0.3333333333333333,
+                0.3333333333333333,
+                0.3333333333333333,
+                0.3333333333333333
+            ]
+        },
+        "normal_split": {
+            "mean": 0.3333333333333333,
+            "std": 0.0,
+            "ci95": 0.0,
+            "all": [
+                0.3333333333333333,
+                0.3333333333333333,
+                0.3333333333333333,
+                0.3333333333333333,
+                0.3333333333333333
+            ]
+        }
+    },
+    "mutual_info": {
+        "u_shape": 0.2732659583815463,
+        "normal_split": 0.3159023263313908
+    },
+    "bc_overlap": {
+        "u_shape": 469.3989762324127,
+        "normal_split": 1094.3404940349246
+    },
+    "gradient_leakage": {
+        "u_shape": {
+            "cosine_similarity": 0.0,
+            "leakage_level": "HIGH"
+        },
+        "normal_split": {
+            "cosine_similarity": -1.0,
+            "leakage_level": "HIGH"
+        }
+    }
+}

@@ -367,6 +367,9 @@ def run_client():
     torch.save(front.state_dict(), f"front_{machine_id}_ushape.pth")
     print(f"[{machine_id}] Front model weights saved.")
 
+    torch.save(tail.state_dict(), f"tail_{machine_id}_ushape.pth")
+    print(f"[{machine_id}] Tail model weights saved.")
+
     save_results(
         method     = "u_shape",
         machine_id = machine_id,
